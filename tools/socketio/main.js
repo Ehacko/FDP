@@ -30,7 +30,7 @@ io.on( "connection", /**socketioJwt.authorize({
 
 
   socket.on('getRoomsList', function() {
-    socket.emit( 'rooms', Object.keys(io.socket.adapter.rooms) );
+    io.sockets.emit( 'rooms', Object.keys(io.socket.adapter.rooms) );
   });
 
   io.sockets.adapter.on("create-room", (room) => {  console.log(`Room ${room} was created`);});
@@ -45,7 +45,7 @@ io.on( "connection", /**socketioJwt.authorize({
   socket.on('joinRoom', function(roomName) {
     console.log(socket.id)
     if(Object.keys(io.sockets.adapter.rooms).includes(roomName)) socket.join(roomName); 
-    else socket.emit('user-msg', `La partie nommée "${roomName}" est introuvable`);
+    else io.sockets.emit('user-msg', `La partie nommée "${roomName}" est introuvable`);
   });
 
   socket.on('closeRoom', function(roomName) {
